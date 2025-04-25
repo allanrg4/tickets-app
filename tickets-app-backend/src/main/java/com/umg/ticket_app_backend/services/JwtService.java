@@ -35,7 +35,7 @@ public class JwtService {
 
     public Long extractExpirationTime(String token) {
         Jwt jwt = decoder.decode(token);
-        var exp = (Instant) jwt.getClaim("exp");
+        var exp = jwt.getExpiresAt();
         return exp.toEpochMilli();
     }
 }
