@@ -49,7 +49,7 @@ public class AuthService {
 
             return true; // Registration successful
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error occurred during user registration: {}", e.getMessage(), e);
             return false; // Registration failed
         }
     }
