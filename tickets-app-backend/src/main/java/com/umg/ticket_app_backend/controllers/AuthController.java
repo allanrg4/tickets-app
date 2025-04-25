@@ -29,6 +29,6 @@ public class AuthController {
     public Boolean register(@RequestBody AuthRegister body) {
         final var response = authService.register(body);
         System.out.println("AuthController: " + response);
-        return false;
+        return response;
     }
 }
