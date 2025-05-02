@@ -1,19 +1,17 @@
 package com.umg.ticket_app_backend.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.umg.ticket_app_backend.repositories.UserRepository;
-import com.umg.ticket_app_backend.entities.AuthUser;
+import com.umg.ticket_app_backend.entities.auth.AuthUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Service
+@RequiredArgsConstructor
 public class AuthUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
-
-    public AuthUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
