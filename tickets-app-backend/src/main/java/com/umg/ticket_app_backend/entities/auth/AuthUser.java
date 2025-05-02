@@ -1,17 +1,15 @@
-package com.umg.ticket_app_backend.entities;
+package com.umg.ticket_app_backend.entities.auth;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class AuthUser implements UserDetails {
     private final User user;
-
-    public AuthUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public String getUsername() {

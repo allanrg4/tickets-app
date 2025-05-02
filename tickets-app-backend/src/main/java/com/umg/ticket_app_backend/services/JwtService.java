@@ -10,14 +10,10 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
     private final JwtEncoder encoder;
     private final JwtDecoder decoder;
-
-    public JwtService(JwtEncoder encoder, JwtDecoder decoder) {
-        this.encoder = encoder;
-        this.decoder = decoder;
-    }
 
     public String generateToken(Authentication authentication) {
         Instant now = Instant.now();

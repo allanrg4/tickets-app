@@ -1,6 +1,6 @@
 package com.umg.ticket_app_backend.repositories;
 
-import com.umg.ticket_app_backend.entities.User;
+import com.umg.ticket_app_backend.entities.auth.User;
 
 import java.util.Optional;
 
