@@ -35,7 +35,7 @@ public class AuthService {
             );
             return userRepository.save(newUser);
         } catch (Exception e) {
-            throw new RuntimeException("Error registering user: " + e.getMessage());
+            throw new RuntimeException("Error registering user: " + e.getMessage(), e);
         }
     }
 }
