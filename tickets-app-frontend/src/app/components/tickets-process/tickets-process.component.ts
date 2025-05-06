@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { TicketItemComponent } from "../ticket-item/ticket-item.component";
 
 @Component({
   selector: 'app-tickets-process',
-  imports: [],
+  imports: [TicketItemComponent],
   templateUrl: './tickets-process.component.html',
-  styleUrl: './tickets-process.component.css'
 })
 export class TicketsProcessComponent {
 
