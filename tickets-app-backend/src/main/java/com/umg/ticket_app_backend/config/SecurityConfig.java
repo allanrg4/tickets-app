@@ -29,8 +29,8 @@ public class SecurityConfig {
 
                     auth.requestMatchers("/api/v1/auth/token").permitAll();
                     auth.requestMatchers("/api/v1/auth/register").permitAll();
-
-                    auth.anyRequest().authenticated();
+                    
+                    auth.anyRequest().permitAll();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> {
