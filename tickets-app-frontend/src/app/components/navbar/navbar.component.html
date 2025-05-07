@@ -1,1 +1,33 @@
-<p>navbar works!</p>
+<div class="navbar bg-black text-white px-6 py-3 shadow-md">
+    <div class="flex-1">
+    <a class="text-2xl font-bold tracking-wide hover:text-primary transition-colors duration-300">TicketsManager</a>
+    </div>
+
+    <div class="flex items-center gap-4">
+        <div class="text-right hidden sm:block">
+            <div class="text-lg font-medium leading-none">John Doe</div>
+            <div class="text-sm text-gray-400">Admin</div>
+        </div>
+
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar w-12 h-12">
+                <div class="rounded-full overflow-hidden w-full h-full ring-2 ring-primary ring-offset-1">
+                <img src="usuario-8.png" alt="Avatar" class="object-cover w-full h-full" />
+            </div>
+        </div>
+
+        <ul tabindex="0" class="menu dropdown-content mt-3 z-[1] shadow-xl bg-white text-black rounded-xl w-44">
+            <li>
+                <a href="/login" class="flex items-center gap-2 hover:bg-gray-100 p-2 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
+                </svg>
+                Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    </div>
+</div>

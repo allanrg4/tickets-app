@@ -1,0 +1,48 @@
+<div
+    class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4 my-2 hover:scale-[1.01] space-y-4">
+    <div class="flex justify-between items-center">
+        <h4 class="font-semibold text-lg text-gray-800 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+        </svg>
+        #{{ ticket?.id || 'No ID' }}
+    </h4>
+        <span class="badge badge-sm" [ngClass]="priorityColor">
+            {{ ticket?.priority || 'No Priority' }}
+        </span>
+    </div>
+
+    <div class="text-sm text-gray-700">
+        <div class="flex items-start gap-2 pb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 text-gray-500" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+    <span class="font-medium">
+        {{ ticket?.firstName || 'N/n' }} {{ ticket?.lastName || 'N/ln' }}
+    </span>
+    </div>
+
+    <div class="flex items-start gap-2 py-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 text-gray-500" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+        </svg>
+        <span>Status: <span class="ml-1 font-medium">{{ ticket?.status || 'N/A' }}</span></span>
+    </div>
+
+    <div class="flex items-start gap-2 pt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 text-gray-500" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+            d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
+        </svg>
+            <p class="line-clamp-2 text-gray-600">
+                {{ ticket?.description || 'No Description' }}
+            </p>
+        </div>
+    </div>
+</div>
