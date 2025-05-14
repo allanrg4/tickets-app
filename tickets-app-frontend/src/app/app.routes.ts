@@ -17,5 +17,7 @@ export const routes: Routes = [
 {
     path: 'resolver', component: ResolverComponent
 },
-{ path: '**', redirectTo: 'login' }
+{ 
+    path: '**', redirectTo: 'login' 
+}
 ];
