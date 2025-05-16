@@ -18,29 +18,25 @@ export class LoginComponent {
 
   onSubmit() {
     this.service.login(this.username, this.password).subscribe({
-      next: (res: any) => {
-        console.log('Login exitoso:', res);
-
+      next: (res) => {
         const { token, username, role, id } = res;
-
-        localStorage.setItem('token', token);
         const user: User = { id, username, role };
-        localStorage.setItem('user', JSON.stringify(user));
-
+        this.service.setUser(user, token);
         switch (role) {
-          case 'admin':
+          case 'ADMIN':
             this.router.navigate(['/admin']);
             break;
-          case 'resolver':
+          case 'RESOLVER':
             this.router.navigate(['/resolver']);
             break;
-          case 'agent':
+          case 'AGENT':
             this.router.navigate(['/agent']);
             break;
           default:
             this.router.navigate(['/']);
             break;
         }
+        console.log('Login exitoso:', res);
       },
       error: (err) => {
         console.error('Error en login:', err);
