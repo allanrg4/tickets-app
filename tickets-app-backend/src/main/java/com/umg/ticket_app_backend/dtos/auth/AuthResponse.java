@@ -1,4 +1,11 @@
 package com.umg.ticket_app_backend.dtos.auth;
 
-public record AuthResponse(String token, String username, Long expiresAt) {
+import com.umg.ticket_app_backend.entities.auth.Role;
+
+public record AuthResponse(
+        String token,
+        Long expiresAt,
+        String username,
+        Role role
+) {
 }
