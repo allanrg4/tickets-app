@@ -24,7 +24,15 @@ public class AuthService {
         final var authentication = authenticationManager.authenticate(token);
         final var jwtToken = jwtService.generateToken(authentication);
         final var expiresAt = jwtService.extractExpirationTime(jwtToken);
-        return new AuthResponse(jwtToken, authentication.getName(), expiresAt);
+        final var user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new RuntimeException("User not found: " + authentication.getName()));
+
+        return new AuthResponse(
+                jwtToken,
+                expiresAt,
+                authentication.getName(),
+                user.getRole()
+        );
     }
 
     public User register(AuthRegister request) {
