@@ -9,7 +9,7 @@ public class TicketController {
     @MessageMapping("/tickets")
     @SendTo("/topic/tickets")
     public Content getTickets(Message message) throws Exception {
-        return new Content(message.message());
+        return new Content(message.message() + " - From Server :D");
     }
 }
 

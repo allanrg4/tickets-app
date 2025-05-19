@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({providedIn: 'root'})
 export class TicketService {
-  
-  private socket$: WebSocketSubject<any> = webSocket('ws://localhost:8080/ws');
+  private socket$: WebSocketSubject<any> = webSocket('ws://127.0.01:8080/ws/v1/websocket');
 
   readonly service = this.socket$;
 
