@@ -54,8 +54,8 @@
                     Phone Number</label>
                 <label class="input validator">
                     <input id="phoneNumber" type="tel" class="tabular-nums" formControlName="phoneNumber"
-                        placeholder="Phone Number" pattern="[0-9]*" minlength="10" maxlength="10" required
-                        title="Must be 10 digits" />
+                        placeholder="Phone Number" pattern="[0-9]*" minlength="8" maxlength="10" required
+                        title="Must be 8 digits" />
                 </label>
                 <p class="validator-hint">Must be 10 digits</p>
             </div>
@@ -84,39 +84,10 @@
                     Priority</label>
                 <select id="priority" class="select" formControlName="priority">
                     <option value="" disabled>Select Priority</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
                 </select>
-            </div>
-
-            <div class="sm:col-span-4">
-                <label for="status" class="label text-sm font-semibold text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-                    </svg>
-                    Status</label>
-                <select id="status" class="select" formControlName="status">
-                    <option value="" disabled>Select Status</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Process">In Process</option>
-                    <option value="Resolved">Resolved</option>
-                </select>
-            </div>
-
-            <div class="sm:col-span-4">
-                <label for="createdAt" class="label text-sm font-semibold text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                    </svg>
-                    Created Date</label>
-                <fieldset class="fieldset">
-                    <input id="createdAt" type="datetime-local" class="input " formControlName="createdAt" />
-                </fieldset>
             </div>
 
             <div class="sm:col-span-8">
@@ -131,8 +102,8 @@
                 <textarea id="description" class="textarea w-full" formControlName="description"
                     placeholder="Description"></textarea>
             </div>
-            <div class="sm:col-span-4 justify-end flex items-end mt-4">
-                <button type="submit" (click)="sendData()"
+            <div class="sm:col-span-4 justify-start flex items-end mt-4">
+                <button type="submit" (click)="onCreate()"
                     class="btn px-6 py-6 bg-blue-600 text-white text-xl  rounded-lg hover:bg-blue-800 transition duration-200">
                     Send Ticket
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
