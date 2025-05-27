@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 @Getter
 @RequiredArgsConstructor
 public enum TicketPriority {
-    LOW("low"),
+    HIGH("high"),
     MEDIUM("medium"),
-    HIGH("high");
+    LOW("low");
 
     private final String code;
 }

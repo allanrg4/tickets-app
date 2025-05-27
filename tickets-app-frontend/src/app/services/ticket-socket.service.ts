@@ -1,37 +1,37 @@
-import { Injectable } from '@angular/core';
-import { Client, IMessage } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+import { Injectable } from '@angular/core'
+import { Client, IMessage } from '@stomp/stompjs'
+import SockJS from 'sockjs-client'
 
-@Injectable({
-  providedIn: 'root'
-})
+const SOCKET_URL = 'http://127.0.0.1:8080/ws/v1'
+
+type Topic = [string, (message: IMessage) => void]
+
+@Injectable({ providedIn: 'root' })
 export class TicketSocketService {
-  private stompClient!: Client;
+  private stompClient = new Client({
+    webSocketFactory: () => new SockJS(SOCKET_URL),
+    reconnectDelay: 5000,
+    debug: (msg: string) => console.log('STOMP: ' + msg),
+  })
 
-  connect(onMessage: (msg: IMessage) => void) {
-    const socket = new SockJS('http://127.0.0.1:8080/ws/v1');
-    this.stompClient = new Client({
-      webSocketFactory: () => socket,
-      reconnectDelay: 5000,
-      debug: (str) => console.log(str)
-    });
+  public onConnect(params: { topics: Topic[]; onConnected?: () => void }) {
+    this.stompClient.onConnect = () => {
+      params.topics.forEach(([topic, callback]) => {
+        this.stompClient.subscribe(topic, callback)
+      })
 
-    this.stompClient.onConnect = (frame) => {
-      console.log('Connected: ' + frame);
-      this.stompClient.subscribe('/topic/tickets', onMessage);
-    };
+      params.onConnected?.()
+    }
 
-    this.stompClient.activate();
+    this.stompClient.activate()
   }
 
-  sendMessage(message: any) {
-    if (this.stompClient && this.stompClient.connected) {
-      this.stompClient.publish({
-        destination: '/app/tickets',
-        body: JSON.stringify(message)
-      });
-    } else {
-      console.warn('STOMP client is not connected.');
-    }
+  public sendMessage(destination: string, message: unknown) {
+    if (!this.stompClient.connected) return
+
+    this.stompClient.publish({
+      destination: destination,
+      body: JSON.stringify(message),
+    })
   }
 }
