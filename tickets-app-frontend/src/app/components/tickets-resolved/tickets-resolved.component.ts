@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TicketItemComponent } from "../ticket-item/ticket-item.component";
+import { Ticket } from '../../entities/ticket';
 
 @Component({
   selector: 'app-tickets-resolved',
@@ -7,5 +8,5 @@ import { TicketItemComponent } from "../ticket-item/ticket-item.component";
   templateUrl: './tickets-resolved.component.html',
 })
 export class TicketsResolvedComponent {
-
+  @Input() tickets: Ticket[] = []
 }
