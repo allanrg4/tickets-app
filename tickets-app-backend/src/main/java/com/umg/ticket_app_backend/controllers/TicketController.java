@@ -61,7 +61,11 @@ public class TicketController {
 
             ticket.setStatus(TicketStatus.RESOLVED);
             this.ticketRepository.save(ticket);
-            this.tickets.remove(ticket);
+            this.tickets.removeIf(t -> t.getId().equals(ticket.getId()));
+
+            System.out.println("Ticket resolved: " + ticket.getId());
+            System.out.println("Tickets remaining: " + this.tickets.size());
+            System.out.println("Tickets: " + this.tickets);
 
             this.onAssignTicket();
 
