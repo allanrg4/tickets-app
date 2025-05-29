@@ -40,22 +40,11 @@ public class TicketController {
     @MessageMapping("/tickets/create")
     @SendTo("/topic/tickets")
     public TicketResponse getTickets(CreateTicketMessage message) throws Exception {
-        final var availableResolver = this.getAvailableResolver();
-
         try {
             final var newTicket = this.ticketRepository.save(Ticket.fromMessage(message));
             tickets.add(newTicket);
 
-            final var peekedTicket = this.getTicketQueue().stream()
-                    .filter(ticket -> ticket.getAssignedTo() == null)
-                    .filter(ticket -> ticket.getStatus() != TicketStatus.RESOLVED)
-                    .toList().getFirst();
-
-            if (availableResolver.isPresent() && peekedTicket != null) {
-                peekedTicket.setAssignedTo(availableResolver.get());
-                peekedTicket.setStatus(TicketStatus.IN_PROGRESS);
-                this.ticketRepository.save(peekedTicket);
-            }
+            this.onAssignTicket();
 
             return this.getSuccessResponse("Ticket created successfully");
         } catch (Exception e) {
@@ -73,6 +62,8 @@ public class TicketController {
             ticket.setStatus(TicketStatus.RESOLVED);
             this.ticketRepository.save(ticket);
             this.tickets.remove(ticket);
+
+            this.onAssignTicket();
 
             return this.getSuccessResponse("Ticket resolved successfully");
         } catch (NoSuchElementException e) {
@@ -105,6 +96,21 @@ public class TicketController {
                     .map(Map.Entry::getKey).sorted().toList().getFirst());
         } catch (NoSuchElementException e) {
             return Optional.empty();
+        }
+    }
+
+    private void onAssignTicket() {
+        final var availableResolver = this.getAvailableResolver();
+
+        final var peekedTicket = this.getTicketQueue().stream()
+                .filter(ticket -> ticket.getAssignedTo() == null)
+                .filter(ticket -> ticket.getStatus() != TicketStatus.RESOLVED)
+                .toList().getFirst();
+
+        if (availableResolver.isPresent() && peekedTicket != null) {
+            peekedTicket.setAssignedTo(availableResolver.get());
+            peekedTicket.setStatus(TicketStatus.IN_PROGRESS);
+            this.ticketRepository.save(peekedTicket);
         }
     }
 
