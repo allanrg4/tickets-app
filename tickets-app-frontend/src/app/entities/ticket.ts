@@ -11,8 +11,10 @@ export interface Ticket {
   email: string
   status: TicketStatus
   priority: TicketPriority
+  assignedTo?: string
   description: string
   createdAt: Date
   updatedAt: Date
   createdBy: User
+  
 }

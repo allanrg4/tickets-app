@@ -1,79 +1,71 @@
 <div class="p-8">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div class="bg-black/10 h-[700px] rounded-lg shadow-md p-4 lg:col-span-1">
-        <app-ticket-item></app-ticket-item>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div>
+      <app-tickets-resolved [tickets]="processTickets()"></app-tickets-resolved>
+    </div>
+
+
+    @if(selectedTicket()){
+    <div class="bg-white h-[700px] rounded-lg p-4 lg:col-span-2">
+      <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Info Ticket</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="label font-semibold text-gray-700">Identification</label>
+          <input disabled type="text" class="input input-bordered w-full" placeholder="ID del ticket"
+            [value]="selectedTicket()?.identification ?? 'N/A'" />
+        </div>
+
+        <div>
+          <label class="label font-semibold text-gray-700">Complete Name</label>
+          <input disabled type="text" class="input input-bordered w-full" placeholder="Name Patient"
+            [value]="selectedTicket() ? selectedTicket()!.firstName + ' ' + selectedTicket()!.lastName : 'N/A'" />
+        </div>
+
+        <div>
+          <label class="label font-semibold text-gray-700">Phone</label>
+          <input disabled type="text" class="input input-bordered w-full" placeholder="Number"
+            [value]="selectedTicket()?.phoneNumber" />
+        </div>
+
+        <div>
+          <label class="label font-semibold text-gray-700">Email</label>
+          <input disabled type="email" class="input input-bordered w-full" placeholder="Email"
+            [value]="selectedTicket()?.email" />
+        </div>
+
+        <div>
+          <label class=" label font-semibold text-gray-700">Priority</label>
+          <input disabled type="text" class="input input-bordered w-full" placeholder="Email"
+            [value]="selectedTicket()?.priority" />
+        </div>
+
+        <div>
+          <label class="label font-semibold text-gray-700">Create Date</label>
+          <input disabled type="text" class="input input-bordered w-full" placeholder="Ej: 2025-04-29 14:30"
+            [value]="selectedTicket()?.createdAt ? (selectedTicket()?.createdAt | date:'yyyy-MM-dd HH:mm') : 'N/A'" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label font-semibold text-gray-700">Details and Recipe</label>
+          <textarea class="textarea textarea-bordered w-full" rows="4"
+            placeholder="Explain the details and give a recipe."></textarea>
+        </div>
+
       </div>
-  
-      <div class="bg-black/10 h-[700px] rounded-lg shadow-md p-4 lg:col-span-2">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Info Ticket</h2>
-  
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label class="label font-semibold text-gray-700">Identification</label>
-            <input disabled type="text" class="input input-bordered w-full" placeholder="ID del ticket" />
-          </div>
-  
-          <div>
-            <label class="label font-semibold text-gray-700">Complete Name</label>
-            <input disabled type="text" class="input input-bordered w-full" placeholder="Name Patient" />
-          </div>
-  
-          <div>
-            <label class="label font-semibold text-gray-700">Phone</label>
-            <input disabled type="text" class="input input-bordered w-full" placeholder="Number" />
-          </div>
-  
-          <div>
-            <label class="label font-semibold text-gray-700">Email</label>
-            <input disabled type="email" class="input input-bordered w-full" placeholder="Email" />
-          </div>
-  
-          <div>
-            <label class="label font-semibold text-gray-700">Status</label>
-            <select class="select select-bordered w-full">
-              <option>In Process</option>
-              <option>Resolved</option>
-              <option>Closed</option>
-            </select>
-          </div>
-  
-          <div>
-            <label class=" label font-semibold text-gray-700">Priority</label>
-            <select class="select select-bordered w-full">
-              <option>LOW</option>
-              <option>MEDIUM</option>
-              <option>HIGH</option>
-            </select>
-          </div>
-  
-          <div class="md:col-span-2">
-            <label class="label font-semibold text-gray-700">Details and Recipe</label>
-            <textarea class="textarea textarea-bordered w-full" rows="4"
-              placeholder="Explain the details and give a recipe."></textarea>
-          </div>
-  
-          <div>
-            <label class="label font-semibold text-gray-700">Create Date</label>
-            <input disabled type="text" class="input input-bordered w-full" placeholder="Ej: 2025-04-29 14:30" />
-          </div>
-  
-          <div>
-            <label class="label font-semibold text-gray-700">Create By</label>
-            <input disabled type="text" class="input input-bordered w-full"
-              placeholder="Name of person to create the ticket" />
-          </div>
-        </div>
-  
-        <div class="mt-6 flex justify-center">
-          <button class="btn btn-success gap-2">
-            <svg xmlns=" http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" />
-            </svg>
-            Resolver Ticket
-          </button>
-        </div>
+
+      <div class="mt-6 flex justify-center">
+        <button class="btn btn-success gap-2" (click)="onResolve(selectedTicket()!.id)">
+          <svg xmlns=" http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" />
+          </svg>
+          Resolver Ticket
+        </button>
       </div>
     </div>
+
+    }
   </div>
+</div>
