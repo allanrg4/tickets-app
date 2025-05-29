@@ -21,6 +21,7 @@ export class TicketResource {
           '/topic/tickets',
           (message) => {
             const response = JSON.parse(message.body)
+            console.log(response)
             this.tickets.update(() => response['data'] || [])
           },
         ],
