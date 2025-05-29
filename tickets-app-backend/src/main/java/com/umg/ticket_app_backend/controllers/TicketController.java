@@ -29,10 +29,7 @@ public class TicketController {
     @SendTo("/topic/tickets")
     public TicketResponse getTickets() throws Exception {
         final var availableTickets = ticketRepository
-                .findAll()
-                .stream()
-                .filter(ticket -> ticket.getStatus() != TicketStatus.RESOLVED)
-                .toList();
+                .findAll().stream().toList();
 
         this.tickets.clear();
         this.tickets.addAll(availableTickets);
@@ -51,6 +48,7 @@ public class TicketController {
 
             final var peekedTicket = this.getTicketQueue().stream()
                     .filter(ticket -> ticket.getAssignedTo() == null)
+                    .filter(ticket -> ticket.getStatus() != TicketStatus.RESOLVED)
                     .toList().getFirst();
 
             if (availableResolver.isPresent() && peekedTicket != null) {
@@ -90,6 +88,7 @@ public class TicketController {
                 .forEach(resolver -> {
                     final var assignments = this.tickets.stream()
                             .filter(ticket -> {
+                                if (ticket.getStatus() == TicketStatus.RESOLVED) return false;
                                 final var assignedTo = ticket.getAssignedTo();
                                 if (assignedTo == null) return false;
                                 return assignedTo.equals(resolver.getUsername());
