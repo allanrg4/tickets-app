@@ -11,6 +11,9 @@ export class TicketSocketService {
   private stompClient = new Client({
     webSocketFactory: () => new SockJS(SOCKET_URL),
     reconnectDelay: 5000,
+    debug: (str) => {
+      console.log(str)
+    }
   })
 
   public onConnect(params: { topics: Topic[]; onConnected?: () => void }) {
