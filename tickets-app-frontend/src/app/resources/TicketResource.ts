@@ -39,5 +39,8 @@ export class TicketResource {
 
   resolveTicket(resolveTicketDto: { ticketId: number }) {
     this.service.sendMessage('/app/tickets/resolve', resolveTicketDto)
+    setTimeout(() => {
+    this.service.sendMessage('/app/tickets', {});
+  }, 100);
   }
 }
