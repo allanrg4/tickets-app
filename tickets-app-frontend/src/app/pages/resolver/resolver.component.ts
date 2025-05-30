@@ -16,7 +16,7 @@ export class ResolverComponent {
   selectedTicket = signal<Ticket | null>(null);
   readonly resource = inject(TicketResource)
   private authService = inject(AuthService);
-
+  
   user = this.authService.currentUser;
 
   readonly processTickets = computed(() => {
@@ -39,10 +39,19 @@ export class ResolverComponent {
   }
 
 
-  onResolve(ticketId: number) {
-    this.resource.resolveTicket({
-      ticketId: ticketId
-    })
-    console.log(`Ticket with ID ${ticketId} resolved.`);
-  }
+onResolve(ticketId: number) {
+  this.resource.resolveTicket({ ticketId });
+
+  this.selectedTicket.set(null);
+
+  setTimeout(() => {
+    const tickets = this.processTickets();
+    if (tickets.length > 0) {
+      this.selectedTicket.set(tickets[0]);
+    } else {
+      this.selectedTicket.set(null);
+    }
+  }, 200);
+}
+
 }
